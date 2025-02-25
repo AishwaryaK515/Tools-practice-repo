@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools { maven 'Maven-3' }  // Use the configured Maven installation
 
     stages {
         stage('Clone Repository') {
