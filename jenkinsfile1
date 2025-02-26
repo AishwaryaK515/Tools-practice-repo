@@ -1,20 +1,21 @@
 pipeline {
     agent any
-       
-         
-    tools {
-        maven 'maven3'  // Ensure this matches the name in Global Tool Configuration
+
+      environment {
+        PATH = "/usr/share/maven/bin:$PATH"  // Use system-installed Maven
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'master', url: 'https://github.com/AishwaryaK515/Tools-practice-repo.git'
+                git branch: 'main', url: 'https://github.com/AishwaryaK515/Tools-practice-repo.git'
             }
         }
 
         stage('Build') {
             steps {
+                sh 'echo "Using Maven version:"'
+                sh 'mvn --version'  // Debugging step to verify Maven path
                 sh 'mvn clean package'
             }
         }
@@ -27,8 +28,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
+                echo "Deploying the application..."
             }
         }
     }
 }
+
